@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAI, I'm Suci Febrianti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #050a14;
+            color: white;
+            overflow: hidden; /* Mencegah scroll manual agar efek slide terasa */
+        }
+
+        /* Container Slide */
+        .main-container {
+            height: 100vh;
+            width: 100%;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        section {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 10%;
+            position: relative;
+        }
+
+        /* Navigasi */
+        nav {
+            position: fixed;
+            top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            z-index: 100;
+        }
+
+        nav a {
+            color: #00d2ff;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Elemen Dekoratif (Lingkaran) */
+        .circle {
+            position: absolute;
+            background: rgba(0, 210, 255, 0.2);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        /* SLIDE 1: HOME */
+        #home { background: radial-gradient(circle at center, #0a192f 0%, #050a14 100%); }
+        
+        .hero-text h1 { font-size: 4rem; color: #00d2ff; line-height: 1.1; }
+        .hero-text p { margin: 20px 0; max-width: 400px; color: #ccd6f6; }
+        
+        .btn-group { display: flex; gap: 15px; }
+        .btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-blue { background: #00d2ff; color: #050a14; }
+        .btn-outline { background: transparent; border: 2px solid #00d2ff; color: #00d2ff; }
+
+        .profile-img {
+            width: 400px;
+            filter: drop-shadow(0 0 20px #00d2ff);
+        }
+
+        /* SLIDE 2: ABOUT */
+        .about-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+        }
+
+        /* Musik Control */
+        .music-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-size: 12px;
+            color: #00d2ff;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="lagu ordinary.mp3.mp4" type="audio/mpeg">
+    </audio>
+
+    <nav>
+        <a onclick="goToSlide(0)">HOME</a>
+        <a onclick="goToSlide(1)">ABOUT ME</a>
+    </nav>
+
+    <div class="main-container" id="slider">
+        
+        <section id="home">
+            <div class="circle" style="width: 300px; height: 300px; top: 10%; right: 10%;"></div>
+            <div class="hero-text">
+                <p>HALLO EVERYONE</p>
+                <h1>Suci<br>Febrianti</h1>
+                <p>Hallo saya Suci Febrianti, Sekolah SMKN 1 Cerme, Jurusan TKJ (Teknik Komputer dan Jaringan)</p>
+                <div class="btn-group">
+                    <button class="btn btn-blue" onclick="startExperience()">View My Work</button>
+                    <a href="https://www.instagram.com/_suciifbrnn?igsh=d3V1dHdnMndrM3Vw" target="_blank" class="btn btn-outline">Instagram</a>
+                </div>
+            </div>
+            <img src="suci.jepg.jpeg" alt="Profile" class="profile-img">
+        </section>
+
+        <section id="about">
+            <div class="circle" style="width: 200px; height: 200px; bottom: 5%; left: 5%;"></div>
+            <img src="suci.jepg.jpeg" alt="About" class="profile-img">
+            <div class="about-content">
+                <h2 style="color:#00d2ff; margin-bottom: 20px;">About Me</h2>
+                <p>Saya sedang belajar membuat website berbasis HTML menggunakan vscode</p>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="music-info">Klik "View My Work" untuk memutar musik</div>
+
+    <script>
+        const slider = document.getElementById('slider');
+        const music = document.getElementById('bgMusic');
+
+        function goToSlide(index) {
+            slider.style.transform = `translateY(-${index * 100}vh)`;
+        }
+
+        function startExperience() {
+            // Memutar musik saat tombol ditekan (kebijakan browser)
+            music.play();
+            goToSlide(1); // Langsung pindah ke About Me
+        }
+
+        // Efek Swipe / Scroll Wheel
+        window.addEventListener('wheel', (e) => {
+            if (e.deltaY > 0) {
+                goToSlide(1);
+            } else {
+                goToSlide(0);
+            }
+        });
+    </script>
+</body>
+</html>
